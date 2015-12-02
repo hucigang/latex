@@ -1,0 +1,543 @@
+% XeLaTeX can use any Mac OS X font. See the setromanfont command below.
+% Input to XeLaTeX is full Unicode, so Unicode characters can be typed directly into the source.
+
+% The next lines tell TeXShop to typeset with xelatex, and to open and save the source with Unicode encoding.
+
+
+\documentclass[10pt]{article}
+%\usepackage{geometry}                % See geometry.pdf to learn the layout options. There are lots.
+%\geometry{letterpaper}                   % ... or a4paper or a5paper or ... 
+%\geometry{landscape}                % Activate for for rotated page geometry
+%\usepackage[parfill]{parskip}    % Activate to begin paragraphs with an empty line rather than an indent
+%\usepackage{graphicx}
+%\usepackage{amssymb}
+
+\usepackage{fontspec}
+\usepackage{multicol}
+\usepackage{multirow}
+\usepackage{listings}
+\usepackage{color}
+\usepackage{graphics}
+\usepackage{longtable,booktabs}
+\usepackage{enumerate}
+
+
+
+\usepackage[left=1.5cm,right=1cm,top=3cm,bottom=1.5cm,marginparwidth=5.5cm,marginparsep=1cm,outer=8cm]{geometry}
+
+
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+
+% Will Robertson's fontspec.sty can be used to simplify font choices.
+% To experiment, open /Applications/Font Book to examine the fonts provided on Mac OS X,
+% and change "Hoefler Text" to any of these choices.
+
+%\usepackage{fontspec,xltxtra,xunicode}
+%\defaultfontfeatures{Mapping=tex-text}
+%\setromanfont[Mapping=tex-text]{Hoefler Text}
+%\setsansfont[Scale=MatchLowercase,Mapping=tex-text]{Gill Sans}
+%\setmonofont[Scale=MatchLowercase]{Andale Mono}
+
+\title{AISSM}
+\author{hucg}
+\date{}                                           % Activate to display a given date or no date
+
+\setmainfont{STFangsong}
+\setcounter{footnote}{-1}
+\begin{document}
+
+%强制换行
+\newcommand{\tabincell}[2]{\begin{tabular}{@{}#1@{}}#2\end{tabular}}
+
+%跨页表格
+\newcommand {\CrossPage}[2] {
+     \hline #1 \\\hline
+    \endfirsthead
+    \multicolumn{#2}{|c|}%
+    {{\bfseries \tablename\ \thetable{} -- continued from previous page}} \\
+    \hline #1 \\\hline
+    \endhead
+    \hline \multicolumn{#2}{|r|}{{Continued on next page}} \\ \hline
+    \endfoot
+    \hline \hline
+    \endlastfoot
+    }
+
+\lstset{ %
+  language=Octave,                      % the language of the code
+  basicstyle=\footnotesize,             % the size of the fonts that are used for the code
+  numbers=none,                         % where to put the line-numbers (none, left,right)
+  numberstyle=\tiny\color{gray},    % the style that is used for the line-numbers
+  stepnumber=2,                         % the step between two line-numbers. If it's 1, each line 
+                                            % will be numbered
+  numbersep=5pt,                        % how far the line-numbers are from the code
+  backgroundcolor=\color{white},        % choose the background color. You must add \usepackage{color}
+  showspaces=false,                     % show spaces adding particular underscores
+  showstringspaces=false,               % underline spaces within strings
+  showtabs=false,                       % show tabs within strings adding particular underscores
+  frame=single,                         % adds a frame around the code
+  rulecolor=\color{black},              % if not set, the frame-color may be changed on line-breaks within not-black text (e.g. commens (green here))
+  tabsize=2,                                % sets default tabsize to 2 spaces
+  captionpos=b,                         % sets the caption-position to bottom
+  breaklines=true,                      % sets automatic line breaking
+  breakatwhitespace=false,          % sets if automatic breaks should only happen at whitespace
+  title=\lstname,                           % show the filename of files included with \lstinputlisting;
+                                            % also try caption instead of title
+  keywordstyle=\color{blue},            % keyword style
+  commentstyle=\color{dkgreen},       % comment style
+  stringstyle=\color{mauve},            % string literal style
+  escapeinside={\%*}{*)},               % if you want to add LaTeX within your code
+  morekeywords={*,...}                      % if you want to add more keywords to the set
+}
+
+\maketitle
+\renewcommand{\contentsname}{目\qquad 录}
+\tableofcontents
+
+% For many users, the previous commands will be enough.
+% If you want to directly input Unicode, add an Input Menu or Keyboard to the menu bar 
+% using the International Panel in System Preferences.
+% Unicode must be typeset using a font containing the appropriate characters.
+% Remove the comment signs below for examples.
+
+% \newfontfamily{\A}{Geeza Pro}
+% \newfontfamily{\H}[Scale=0.9]{Lucida Grande}
+% \newfontfamily{\J}[Scale=0.85]{Osaka}
+
+% Here are some multilingual Unicode fonts: this is Arabic text: {\A السلام عليكم}, this is Hebrew: {\H שלום}, 
+% and here's some Japanese: {\J 今日は}.
+
+    \section{数据字典} 
+    
+    \newcommand {\tablestyle}{|p{2.9cm}|p{2.9cm}| p{1.8cm} |p{1.2cm}|p{1.2cm}|p{1.2cm}|p{4cm}|}
+    \subsection {t\_s\_user}
+    \begin{center}
+    \begin{longtable}{\tablestyle}
+    
+    \caption[用户表]{用户表} \label{t_s_user} \\
+
+    \CrossPage{Name&Code&Data Type&Primary&Foreign&Key&备注}{7}
+
+    user\_id& user\_id & int(4) & FALSE & FALSE & FALSE & 用户ID \\
+    \hline
+    code & code & varchar(20) & FALSE & FALSE & FALSE &  用户编码 \\
+    \hline
+    password & password & varchar(20) & FALSE & FALSE & FALSE & 密码\\
+    \hline
+    mail & mail & varchar(30) & FALSE & FALSE & FALSE & 邮箱\\
+    \hline
+    memo & memo & varchar(40) & FALSE & FALSE & FALSE & 备注\\
+    \hline
+    {status}&{status}&{char(1)}&{FALSE}&{FALSE}&{TRUE}&\tabincell{c}{1 : 生效 \\  0 : 失效\\}  \\
+    \hline
+    \end{longtable}
+    \end{center}
+
+    \subsection {t\_s\_menu}
+    \begin{center}
+    \begin{longtable}{\tablestyle}
+    \caption[菜单表]{菜单表} \label{t_s_menu} \\
+
+    \CrossPage{Name&Code&Data Type&Primary&Foreign&Key&备注}{7}
+
+    menu\_id & menu\_id & int(4)& TRUE & FALSE & TRUE & 菜单ID\\
+    \hline
+    name&name&varchar(40)&FALSE&FALSE&TRUE & 菜单名\\
+    \hline
+    url&url&varchar(50)&FALSE&FALSE&TRUE & 菜单的链接地址\\
+    \hline
+    level&level&char(1)&FALSE&FALSE&FALSE & 菜单级别\\
+    \hline
+    parent\_id&parent\_id&int(4)&FALSE&FALSE&FALSE & 菜单的父节点 0为root\\
+    \hline
+    parent\_name&parent\_name&varchar(40)&FALSE&FALSE&FALSE & 父节点菜单名\\
+    \hline
+    \end{longtable}
+    \end{center}
+    
+    \subsection {t\_s\_role}
+    \begin{center}
+    \begin{longtable}{\tablestyle}
+    \caption[角色表]{角色表} \label{t_s_role} \\
+
+    \CrossPage{Name&Code&Data Type&Primary&Foreign&Key&备注}{7}
+
+    role\_id&role\_id&int(4)&TRUE&FALSE&TRUE & 角色ID\\
+    \hline
+    name&name&varchar(40)&FALSE&FALSE&TRUE& 角色名称\\
+    \hline
+    memo&memo&varchar(50)&FALSE&FALSE&FALSE& 备注\\
+    \hline
+    level&level&int(4)&FALSE&FALSE&FALSE& 角色级别\\
+    \hline
+    \end{longtable}
+    \end{center}
+
+    \subsection {t\_r\_userrole}
+    \begin{center}
+    \begin{longtable}{\tablestyle}
+    \caption[用户角色关系表]{用户角色关系表} \label{t_r_userrole} \\
+
+    \CrossPage{Name&Code&Data Type&Primary&Foreign&Key&备注}{7}
+
+    user\_id\footnote{t\_s\_user.user\_id}&user\_id&int(4)&FALSE&FALSE&FALSE&用户ID\\
+    \hline
+    role\_id\footnote{t\_s\_role.role\_id}&role\_id&int(4)&FALSE&FALSE&FALSE&角色ID\\
+    \hline
+    start\_time&start\_time&datetime&FALSE&FALSE&FALSE&生效时间\\
+    \hline
+    end\_time&end\_time&datetime&FALSE&FALSE&FALSE&失效时间\\
+    \hline
+    {status}&{status}&{char(1)}&{FALSE}&{FALSE}&{TRUE}&\tabincell{c}{1 : 生效 \\  0 : 失效\\}  \\
+    \hline
+    \end{longtable}
+    \end{center}
+    
+    \subsection {t\_r\_menu\_right}
+    \begin{center}
+    \begin{longtable}{\tablestyle}
+    \caption[菜单权限表]{菜单权限表} \label{t_s_menu_right} \\
+
+    \CrossPage{Name&Code&Data Type&Primary&Foreign&Key&备注}{7}
+    
+    right\_id\footnote{t\_s\_right.right\_id}&right\_id&int(4)&FALSE&FALSE&FALSE& 权限ID\\
+    \hline
+    menu\_id\footnote{t\_s\_menu.menu\_id}&menu\_id&int(4)&FALSE&FALSE&FALSE& 菜单ID\\
+    \hline
+    start\_time&start\_time&datetime&FALSE&FALSE&FALSE&生效时间\\
+    \hline
+    end\_time&end\_time&datetime&FALSE&FALSE&FALSE&失效时间\\
+    \hline
+    {status}&{status}&{char(1)}&{FALSE}&{FALSE}&{TRUE}&\tabincell{c}{1 : 生效 \\  0 : 失效\\}  \\
+    \hline
+    \end{longtable}
+    \end{center}
+
+	\subsection {t\_r\_right}
+    \begin{center}
+    \begin{longtable}{\tablestyle}
+    \caption[权限表]{权限表} \label{t_s_right} \\
+
+    \CrossPage{Name&Code&Data Type&Primary&Foreign&Key&备注}{7}
+   
+    right\_id\label{right_id}&right\_id&int(4)&TRUE&FALSE&TRUE&权限ID\\
+    \hline
+    name&name&varchar(40)&FALSE&FALSE&TRUE&权限名称\\
+    \hline
+    memo&memo&varchar(50)&FALSE&FALSE&FALSE&备注\\
+    \hline
+    level&level&int(4)&FALSE&FALSE&FALSE&权限级别\\
+    \hline
+    \end{longtable}
+    \end{center}
+
+    \subsection {t\_r\_role\_right}
+    \begin{center}
+    \begin{longtable}{\tablestyle}
+    
+    \caption[角色权限表]{角色权限表} \label{t_s_role_right} \\    
+    \CrossPage{Name&Code&Data Type&Primary&Foreign&Key&备注}{7}
+    
+    role\_id\footnote{t\_s\_role.role\_id}&role\_id&int(4)&FALSE&FALSE&FALSE&角色ID\\
+    \hline
+    right\_id\footnote{t\_s\_right.right\_id}&right\_id&int(4)&FALSE&FALSE&FALSE&权限ID\\
+    \hline
+    start\_time&start\_time&datetime&FALSE&FALSE&FALSE&生效时间\\
+    \hline
+    end\_time&end\_time&datetime&FALSE&FALSE&FALSE&失效时间\\
+    \hline
+    {status}&{status}&{char(1)}&{FALSE}&{FALSE}&{TRUE}&\tabincell{c}{1 : 生效 \\  0 : 失效\\}  \\
+    \hline
+    \end{longtable}
+    \end{center}
+
+    \subsection {t\_proj\_r\_manager}
+    \begin{center}
+    \begin{longtable}{\tablestyle}
+    
+    \caption[项目经理表]{项目经理表} \label{t_proj_r_manager} \\    
+    \CrossPage{Name&Code&Data Type&Primary&Foreign&Key&备注}{7}
+    
+    emp\_id&emp\_id&int(6)&FALSE&FALSE&TRUE&员工ID,\\
+    \hline
+    proj\_id&proj\_id&int(6)&FALSE&FALSE&TRUE&项目ID\\
+    \hline
+    start\_time&start\_time&datetime&FALSE&FALSE&TRUE&生效时间\\
+    \hline
+    end\_time&end\_time&datetime&FALSE&FALSE&FALSE&失效时间\\
+    \hline
+    {status}&{status}&{char(1)}&{FALSE}&{FALSE}&{TRUE}&\tabincell{c}{1 : 生效 \\  0 : 失效\\}  \\
+    \hline
+    \end{longtable}
+    \end{center}
+
+    \subsection {t\_proj\_r\_deptmanager}
+    \begin{center}
+    \begin{longtable}{\tablestyle}
+    
+    \caption[部门经理表(记录管理员工信息)]{部门经理表(记录管理员工信息)} \label{t_proj_r_deptmanager} \\    
+    \CrossPage{Name&Code&Data Type&Primary&Foreign&Key&备注}{7}
+    
+    emp\_id&emp\_id&int(6)&FALSE&FALSE&TRUE&员工ID,\\
+    \hline
+    dept\_id&dept\_id&int(6)&FALSE&FALSE&TRUE&部门ID\\
+    \hline
+    start\_time&start\_time&datetime&FALSE&FALSE&TRUE&生效时间\\
+    \hline
+    end\_time&end\_time&datetime&FALSE&FALSE&FALSE&失效时间\\
+    \hline
+    {status}&{status}&{char(1)}&{FALSE}&{FALSE}&{TRUE}&\tabincell{c}{1 : 生效 \\  0 : 失效\\}  \\
+    \hline
+    \end{longtable}
+    \end{center}
+
+    \subsection {t\_proj\_r\_deptemp}
+    \begin{center}
+    \begin{longtable}{\tablestyle}
+    
+    \caption[部门员工表(记录普通员工信息)]{部门员工表(记录普通员工信息)} \label{t_proj_r_deptemp} \\    
+    \CrossPage{Name&Code&Data Type&Primary&Foreign&Key&备注}{7}
+    
+    emp\_id&emp\_id&int(6)&FALSE&FALSE&TRUE&员工ID\\
+    \hline
+    dept\_id&dept\_id&int(6)&FALSE&FALSE&TRUE&部门ID\\
+    \hline
+    start\_time&start\_time&datetime&FALSE&FALSE&TRUE&生效时间\\
+    \hline
+    end\_time&end\_time&datetime&FALSE&FALSE&TRUE&失效时间\\
+    \hline
+    {status}&{status}&{char(1)}&{FALSE}&{FALSE}&{TRUE}&\tabincell{c}{1 : 生效 \\  0 : 失效\\}  \\
+    \hline
+    \end{longtable}
+    \end{center}
+
+
+    \subsection {t\_proj\_r\_projemp\_plication}
+    \begin{center}
+    \begin{longtable}{\tablestyle}
+    \caption[项目员工过程表]{项目员工过程表} \label{t_proj_r_projemp_plication} \\    
+    \CrossPage{Name&Code&Data Type&Primary&Foreign&Key&备注}{7}
+
+    emp\_id&emp\_id&int(6)&FALSE&FALSE&TRUE&员工ID\\
+    \hline
+    proj\_id&proj\_id&int(6)&FALSE&FALSE&TRUE&项目ID\\
+    \hline
+    \parbox{2.1cm}{emp\_proj\_position}&emp\_proj\_position&char(20)&FALSE&FALSE&TRUE&\tabincell{c}{项目中的职位\\}\\
+    \hline
+    emp\_work\_addr&emp\_work\_addr&char(30)&FALSE&FALSE&FALSE&项目中的工作地点\\
+    \hline
+    projemp\_id\footnote{新增信息为空, 变更记录为当前生效记录}&projemp\_id&int(6)&FALSE&FALSE&FLASE&记录项目员工表的编号 \\
+    \hline
+    start\_time&start\_time&datetime&FALSE&FALSE&TRUE&开始时间\\
+    \hline
+    end\_time&end\_time&datetime&FALSE&FALSE&FALSE&结束时间\\
+    \hline
+    {status}&{status}&{char(1)}&{FALSE}&{FALSE}&{TRUE}&\tabincell{c}{
+    		9 : 审批中 \\ 
+		1 : 审批通过\\ 
+		0 : 审批拒绝 \\
+		7 : 审批处理中\\ }\\
+%    9：审批中\\1 审批通过(工作状态)\\ 0， 审批拒绝\\ 7，离开项目状态\\
+    \hline
+    \end{longtable}
+    \end{center}	
+	
+	
+     \subsection {t\_proj\_r\_projemp}
+    \begin{center}
+    \begin{longtable}{\tablestyle}
+    \caption[项目员工表]{项目员工表} \label{t_proj_r_projemp} \\    
+    \CrossPage{Name&Code&Data Type&Primary&Foreign&Key&备注}{7}
+
+    projemp\_id\footnote{使用select nextval('projEmpSeq')来获取编号}&projemp\_id&int(6)&FALSE&FALSE&TRUE&编号\\
+    \hline
+    emp\_id&emp\_id&int(6)&FALSE&FALSE&TRUE&员工ID\\
+    \hline
+    proj\_id&proj\_id&int(6)&FALSE&FALSE&TRUE&项目ID\\
+    \hline
+    \parbox{2.1cm}{emp\_proj\_position}&emp\_proj\_position&char(20)&FALSE&FALSE&TRUE&\tabincell{c}{项目中的职位\\}\\
+    \hline
+    emp\_work\_addr&emp\_work\_addr&char(30)&FALSE&FALSE&FALSE&项目中的工作地点\\
+    \hline
+    start\_time&start\_time&datetime&FALSE&FALSE&TRUE&开始时间\\
+    \hline
+    end\_time&end\_time&datetime&FALSE&FALSE&FALSE&结束时间\\
+    \hline
+    {status}&{status}&{char(1)}&{FALSE}&{FALSE}&{TRUE}&\tabincell{c}{}\\
+    \hline
+    \end{longtable}
+    \end{center}
+
+    \subsection {t\_proj\_f\_def}
+    \begin{center}
+    \begin{longtable}{\tablestyle}
+    
+    \caption[项目定义表]{项目定义表} \label{t_proj_f_def} \\    
+    \CrossPage{Name&Code&Data Type&Primary&Foreign&Key&备注}{7}
+
+    proj\_id&proj\_id&int(6)&TRUE&FALSE&TRUE&项目ID\\
+    \hline
+    proj\_name&proj\_name&varchar(20)&FALSE&FALSE&TRUE&项目名\\
+    \hline
+    proj\_province&proj\_province&varchar(20)&FALSE&FALSE&TRUE&项目归属地\\
+    \hline
+    proj\_area&proj\_area&varchar(20)&FALSE&FALSE&TRUE&项目归属大区\\
+    \hline
+    proj\_type&proj\_type&varchar(20)&FALSE&FALSE&TRUE&项目类型\\    
+    \hline    
+    {proj\_status}&{proj\_status}&{char(1)}&{FALSE}&{FALSE}&{TRUE}&\tabincell{c}{1 : 生效 \\  0 : 失效\\其他情况暂不考虑\\}\\
+    \hline
+    proj\_memo&proj\_memo&varchar(100)&FALSE&FALSE&FALSE& 项目备注\\
+    \hline
+    proj\_start\_time&proj\_start\_time&datetime&FALSE&FALSE&TRUE&项目开始时间\\
+    \hline
+    proj\_level&proj\_level&int(4)&FALSE&FALSE&TRUE&项目级别\\
+    \hline
+    \end{longtable}
+    \end{center}
+
+     \subsection {t\_proj\_f\_dept}
+    \begin{center}
+    \begin{longtable}{\tablestyle}
+    
+    \caption[部门结构表]{部门结构表} \label{t_proj_f_dept} \\    
+    \CrossPage{Name&Code&Data Type&Primary&Foreign&Key&备注}{7}
+
+    dept\_id&dept\_id&int(6)&TRUE&FALSE&TRUE&部门ID\\
+    \hline
+    dept\_type&dept\_type&varchar(50)&FALSE&FALSE&TRUE&部门名缩写，英文\\
+    \hline
+    dept\_name&dept\_name&varchar(50)&FALSE&FALSE&TRUE&部门全程\\
+    \hline
+    dept\_parent\_id&dept\_parent\_id&int(6)&FALSE&FALSE&TRUE&上级部门ID\\
+    \hline
+    dept\_memo&dept\_memo&varchar(200)&FALSE&FALSE&FALSE&部门信息\\
+    \hline
+    dept\_extern\_col1&dept\_extern\_col1&varchar(20)&FALSE&FALSE&FALSE&预留1\\
+    \hline
+    dept\_extern\_col2&dept\_extern\_col2&varchar(20)&FALSE&FALSE&FALSE&预留2\\
+    \hline
+    \end{longtable}
+    \end{center}
+
+     \subsection {t\_proj\_f\_employee}
+    \begin{center}
+
+    \begin{longtable}{\tablestyle}  
+    
+    \caption[员工表]{员工表} \label{t_proj_f_employee} \\    
+    \CrossPage{Name&Code&Data Type&Primary&Foreign&Key&备注}{7}
+    \hline
+    emp\_code&emp\_code&varchar(20)&FALSE&FALSE&TRUE&员工编号\\
+    \hline
+    emp\_ntcode&emp\_ntcode&varchar(20)&FALSE&FALSE&TRUE&员工NT账号\\
+    \hline    
+    emp\_name&emp\_name&varchar(20)&FALSE&FALSE&TRUE&员工姓名\\
+    \hline
+    emp\_email&emp\_email&varchar(40)&FALSE&FALSE&TRUE&员工邮箱\\
+    \hline 
+    emp\_ability&emp\_ability&varchar(20)&FALSE&FALSE&TRUE&员工能力\\    
+    \hline   
+    emp\_base\_addr&emp\_base\_addr&char(30)&FALSE&FALSE&FALSE&员工入职地(BASE地)\\
+    \hline
+    emp\_status&emp\_status&char(1)&FALSE&FALSE&TRUE&员工状态\\
+    \hline
+    emp\_memo&emp\_memo&varchar(100)&FALSE&FALSE&FALSE&员工备注\\
+    \hline
+    emp\_start\_time&emp\_start\_time&datetime&FALSE&FALSE&TRUE&入职时间\\
+    \hline
+    \end{longtable}
+    \end{center}
+
+
+     \section {环境相关}
+     \subsection {正式环境}
+
+    \begin{center}
+	\begin{longtable}{\tablestyle}  
+	    \caption[正式环境]{正式环境} \label{正式环境} \\ 
+	    \hline
+	    \CrossPage{类型&IP&PORT&登陆方式&用户名&密码&备注}{7}
+	    主机&10.1.234.30&-&ssh&aissm&as1a1nf0&/home/aissm/soft/apache-tomcat-7.0.62\\
+	    \hline
+	    数据库&10.1.234.28&3306&-&devel&devel&aissm\\
+	    \hline 
+    \end{longtable}
+    \end{center}
+    
+    \subsection {测试环境}
+
+    \begin{center}
+	\begin{longtable}{\tablestyle}  
+	    \caption[测试环境]{测试环境} \label{测试环境} \\ 
+	    \hline
+	    \CrossPage{类型&IP&PORT&登陆方式&用户名&密码&备注}{7}
+	    主机&10.1.234.29&-&ssh&aissm&as1a1nf0&/home/aissm/apache-tomcat-7.0.62\\
+	    \hline
+	    数据库&10.1.248.102&3306&-&devel&devel&aissm\\
+	    \hline 
+    \end{longtable}
+    \end{center}
+
+     \subsubsection {操作步骤[以正式环境为例]}
+     	\begin{enumerate}[step 1]
+		\item IDE(eclipse)操作
+将工程打包成war包
+		
+		\item ftp操作
+29主机开通sftp协议 使用sftp登陆		
+		\begin{lstlisting}[language={[ANSI]C}]{}
+put ssm.war
+		\end{lstlisting}
+		
+		\item 部署项目
+		\begin{lstlisting}[language={[ANSI]C}]{}
+cd /home/aissm/apache-tomcat-7.0.62/webapps
+rm -fr ssm*
+cp ~/ssm.war . (~/ssm.war表示"ftp操作"的上传目录)
+cd ../bin
+./shutdown.sh
+./startup.sh		
+		\end{lstlisting}
+		
+
+		\item 修改数据库配置
+		\begin{lstlisting}[language={[ANSI]C}]{}
+cd /home/aissm/apache-tomcat-7.0.62/webapps/ssm/WEB-INF/classes
+cat dbconfig.properties (数据库连接地址 确认连接到正式数据库[10.1.234.28])
+		\end{lstlisting}
+		
+		\item 其他主要配置
+		\begin{lstlisting}[language={[ANSI]C}]{}
+定时邮件: /home/aissm/apache-tomcat-7.0.62/webapps/ssm/WEB-INF/classes/spring/applicationContext-quartz.xml
+		\end{lstlisting}
+		
+		\item 再次重启服务
+		\begin{lstlisting}[language={[ANSI]C}]{}
+cd /home/aissm/apache-tomcat-7.0.62/bin
+./shutdown.sh
+./startup.sh
+		\end{lstlisting}
+		
+		\end{enumerate}
+ 
+      \subsection {其他说明} 
+	 \begin{enumerate}[注 1]
+	 \item 访问地址
+	\begin{lstlisting}[language={[ANSI]C}]{}
+正式环境 http://cmcssm.asiainfo.com/ssm
+	\end{lstlisting}
+	\begin{lstlisting}[language={[ANSI]C}]{}
+测试环境 http://cmcssm.asiainfo.com/ssmtest
+	\end{lstlisting}
+	\item tip查看数据库连接信息
+	\begin{lstlisting}[language={[ANSI]C}]{}
+[#160#aissm@ssmpro ~/soft/apache-tomcat-7.0.62/bin 正式环境 ]$ tip
+url:jdbc:mysql://10.1.234.28:3306/aissm?useUnicode=true&characterEncoding=utf8	
+	\end{lstlisting}
+      	\end{enumerate}
+
+     
+\end{document}  
